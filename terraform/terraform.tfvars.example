@@ -1,0 +1,9 @@
+﻿subscription_id      = "00000000-0000-0000-0000-000000000000"
+location             = "eastus"
+resource_group_name  = "rg-proyecto-admin-ti"
+vm_name              = "vm-proyecto-admin-ti"
+admin_username       = "azureuser"
+admin_ssh_public_key = "ssh-rsa AAAA... reemplazar ..."
+
+# Cambiar a true solo para pruebas temporales sin reverse proxy
+enable_temp_app_ports = false

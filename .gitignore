@@ -1,4 +1,4 @@
-.env
+﻿.env
 .env.*
 !.env.example
 
@@ -20,3 +20,8 @@ backend/storage/audio/*
 
 postgres_data/
 *.log
+
+# Security and operations
+backups/
+*.pem
+*.key
