@@ -1,7 +1,7 @@
 ﻿# AI Technical Interviewer Voice System
 
 Plataforma full stack para entrevistas técnicas asistidas por IA con evaluación por plantilla, análisis de CV y entrevista por voz.
-
+hola 
 ## Descripción del proyecto
 - Frontend para reclutador y candidato.
 - Backend API para gestión de entrevistas, scoring y reportes.
