@@ -127,3 +127,7 @@ docker image prune -f
 - CI/CD: `.github/workflows/*` y `docs/github-actions.md`
 - IaC: `terraform/*`
 - Backup: `scripts/*` y `docs/backup.md`
+
+ssh -i "C:\Users\JefroMM\Downloads\vm-app-ia-01_key.pem" azureuser@20.49.8.87
+ls -la /opt/proyecto-admin-ti
+http://20.49.8.87:3000
