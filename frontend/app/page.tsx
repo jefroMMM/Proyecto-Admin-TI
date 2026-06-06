@@ -35,7 +35,7 @@ export default function LandingPage() {
             Entrevistas por voz con IA y evaluación estructurada
           </div>
           <h1 className="mt-6 max-w-4xl text-5xl font-semibold leading-tight md:text-7xl">
-            Cambios desde local a vps.
+            Ahorra tiempo entrevistando potenciales perfiles!
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
             Una plataforma completa para entrevistas técnicas: voz, contexto del candidato, preguntas adaptativas y reportes finales claros.
