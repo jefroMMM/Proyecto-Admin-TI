@@ -51,6 +51,7 @@ def create_app() -> FastAPI:
             "service": settings.PROJECT_NAME,
             "docs": "/docs",
             "health": "/health",
+            "healthcheck": "/healthcheck",
         }
 
     return app

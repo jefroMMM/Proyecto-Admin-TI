@@ -1,12 +1,14 @@
-﻿name: Deploy VPS
+name: Deploy VPS
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI"]
     branches: ["main"]
-  workflow_dispatch:
+    types: [completed]
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Deploy over SSH
@@ -19,6 +21,7 @@ jobs:
           script: |
             set -e
             APP_DIR="${{ secrets.VPS_APP_DIR }}"
+            DEPLOY_SHA="${{ github.event.workflow_run.head_sha }}"
             if [ -z "$APP_DIR" ]; then APP_DIR="/opt/proyecto-admin-ti"; fi
 
             sudo mkdir -p "$APP_DIR"
@@ -27,9 +30,9 @@ jobs:
 
             if [ ! -d .git ]; then
               git clone https://github.com/jefroMMM/Proyecto-Admin-TI.git .
-            else
-              git pull origin main
             fi
+            git fetch origin main
+            git checkout --force "$DEPLOY_SHA"
 
             if [ ! -f .env ]; then
               cp .env.example .env
@@ -40,3 +43,16 @@ jobs:
             docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
             docker image prune -f
             docker ps
+
+      - name: Verify healthcheck after deploy
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_HEALTHCHECK_URL: ${{ secrets.VPS_HEALTHCHECK_URL }}
+        run: |
+          set -euo pipefail
+          HEALTHCHECK_URL="${VPS_HEALTHCHECK_URL:-http://${VPS_HOST}:8000/healthcheck}"
+          curl --fail --show-error --silent \
+            --retry 10 \
+            --retry-delay 5 \
+            --retry-connrefused \
+            "$HEALTHCHECK_URL"
